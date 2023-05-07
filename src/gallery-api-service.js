@@ -3,6 +3,7 @@ export class GalleryApiService {
   constructor() {
     this.textToSearch = '';
     this.page = 1;
+    this.perPage = 40;
   }
 
   async fetchItems() {
@@ -14,7 +15,7 @@ export class GalleryApiService {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        per_page: 40,
+        per_page: this.perPage,
         page: this.page,
       };
 

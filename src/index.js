@@ -1,17 +1,25 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import SimpleLightbox from 'simplelightbox';
+
+import SimpleLightbox from "simplelightbox";
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { GalleryApiService } from './gallery-api-service.js';
+
 
 const searchFormEl = document.querySelector('.search-form');
 const galleryContainer = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
 
+let simpleLightbox = new SimpleLightbox('.gallery .photo-card-wraper__link', {
+    captionsData: 'alt',
+    captionDelay: 250,
+  })
+
 const galleryApiService = new GalleryApiService();
 console.dir(galleryApiService);
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
+loadMoreBtnEl.addEventListener('click', onloadMoreBtnElClick);
 
 async function onSearchFormSubmit(evt) {
   evt.preventDefault();
@@ -30,12 +38,32 @@ async function onSearchFormSubmit(evt) {
       throw new Error('no hits');
     }
     renderGalleryMarkup(data.hits);
+    simpleLightbox.refresh();
+    
+    Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
   } catch (error) {
     if (error.message === 'no hits') {
       // loadMoreBtnEl must be hided
       onNoHitsErr();
     }
   }
+}
+async function onloadMoreBtnElClick(evt){
+           
+    try {
+        galleryApiService.setNextPage();
+        const data = await galleryApiService.fetchItems();
+        renderGalleryMarkup(data.hits);
+        simpleLightbox.refresh();            
+            if (data.totalHits<= galleryApiService.page*galleryApiService.perPage) {
+                loadMoreBtnEl.style.display = 'none';
+            }
+            smoothScroll();
+          
+        
+    } catch (error) {
+        
+    }
 }
 
 function onNoHitsErr() {
@@ -46,6 +74,7 @@ function onNoHitsErr() {
 
 function removeGalleryMarkup() {
   galleryContainer.innerHTML = '';
+//   simpleLightbox.refresh();
 }
 
 function createGalleryMarkup(array) {
@@ -61,9 +90,9 @@ function createGalleryMarkup(array) {
         downloads,
       }) => {        
         return `
-        <a href="${largeImageURL}" class="photo-card-wraper__link">
         <div class="photo-card">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <a href="${largeImageURL}" class="photo-card-wraper__link link">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" class="photo-card__image" />
             <div class="info">
               <p class="info-item">
                 <b>Likes</b>
@@ -82,8 +111,9 @@ function createGalleryMarkup(array) {
                 ${downloads}
               </p>
             </div>
-          </div>
-    </a>`;
+            </a>
+        </div>
+    `;
       }
     )
     .join('');
@@ -91,6 +121,7 @@ function createGalleryMarkup(array) {
 
 function renderGalleryMarkup(array) {
   galleryContainer.insertAdjacentHTML('beforeend', createGalleryMarkup(array));
+  simpleLightbox.refresh();
 }
 
 function flowScrollOnLoadMore() {
