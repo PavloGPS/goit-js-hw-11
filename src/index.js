@@ -10,7 +10,7 @@ const searchFormEl = document.querySelector('.search-form');
 const galleryContainer = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
 
-let simpleLightbox = new SimpleLightbox('.gallery .photo-card-wraper__link', {
+const simpleLightbox = new SimpleLightbox('.gallery .photo-card-wraper__link', {
     captionsData: 'alt',
     captionDelay: 250,
   })
