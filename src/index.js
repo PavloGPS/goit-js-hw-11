@@ -74,7 +74,7 @@ function onNoHitsErr() {
 
 function removeGalleryMarkup() {
   galleryContainer.innerHTML = '';
-//   simpleLightbox.refresh();
+  //   simpleLightbox.refresh();
 }
 
 function createGalleryMarkup(array) {

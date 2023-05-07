@@ -1,15 +1,8 @@
-@import './common';
-
-// Utils styles
-
-// Змінні
-// @import './utils/variables';
-// @import './utils/mixins';
-
 
 // base styles
 
 // Основні стилі
+@import './common';
 @import './base/base';
 
 //reset some defaults
@@ -19,7 +12,6 @@
 // components styles
 
 // компоненти
-@import './components/gallery';
 @import './components/gallery';
 // @import './components/spiner';
 
