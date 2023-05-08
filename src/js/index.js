@@ -30,7 +30,7 @@ async function onSearchFormSubmit(evt) {
       evt.currentTarget.elements.searchQuery.value.trim();
     if (!currentQueryText) {
       removeGalleryMarkup();
-      evt.currentTarget.elements.searchQuery.value='';
+      evt.currentTarget.elements.searchQuery.value = '';
       return;
     }
     galleryApiService.query = currentQueryText;
@@ -41,18 +41,18 @@ async function onSearchFormSubmit(evt) {
       throw new Error('no hits');
     }
     galleryApiService.calculateTotalPages(data);
-        
+
     renderGalleryMarkup(data.hits);
     simpleLightbox.refresh();
 
     galleryApiService.setNextPage();
 
     Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
-    if(galleryApiService.totalPages>1){
+    if (galleryApiService.totalPages > 1) {
       loadMoreBtnEl.style.display = 'flex';
     }
   } catch (error) {
-    if (error.message === 'no hits') {      
+    if (error.message === 'no hits') {
       onNoHitsErr();
     }
   }
@@ -60,25 +60,23 @@ async function onSearchFormSubmit(evt) {
 
 async function onloadMoreBtnElClick(evt) {
   try {
-    loadMoreBtnEl.disabled = true;    
+    loadMoreBtnEl.disabled = true;
     const data = await galleryApiService.fetchItems();
     renderGalleryMarkup(data.hits);
     simpleLightbox.refresh();
     loadMoreBtnEl.disabled = false;
     flowScrollOnLoadMore();
-    console.log("page",galleryApiService.page);    
-    console.log("totalPage",galleryApiService.totalPages);
-    console.log("lastPage-",galleryApiService.pageIsLast())    
-    if (galleryApiService.pageIsLast()){
-      onLastPage()      
-    };
+    console.log('page', galleryApiService.page);
+    console.log('totalPage', galleryApiService.totalPages);
+    console.log('lastPage-', galleryApiService.pageIsLast());
+    if (galleryApiService.pageIsLast()) {
+      onLastPage();
+    }
     galleryApiService.setNextPage();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
-
-
 
 function onLastPage() {
   loadMoreBtnEl.style.display = 'none';
@@ -146,13 +144,12 @@ function renderGalleryMarkup(array) {
 }
 
 function flowScrollOnLoadMore() {
-  const { height: cardHeight } = document  
+  const { height: cardHeight } = document
     .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
     top: cardHeight * 1.7,
-    behavior: 'smooth',    
+    behavior: 'smooth',
   });
-  
 }

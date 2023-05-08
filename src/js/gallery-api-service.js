@@ -4,7 +4,7 @@ export class GalleryApiService {
     this.textToSearch = '';
     this.page = 1;
     this.perPage = 40;
-    this.totalPages =50;
+    this.totalPages = 50;
   }
 
   async fetchItems() {
@@ -23,7 +23,6 @@ export class GalleryApiService {
       const resp = await axios({ params });
       const data = resp.data;
       console.log(data);
-      // this.setNextPage();     
       return data;
     } catch (error) {
       throw new Error(error);
@@ -40,7 +39,7 @@ export class GalleryApiService {
 
   setNextPage() {
     // if(!pageIsLast()){
-      this.page += 1;
+    this.page += 1;
     // }
   }
 
@@ -48,11 +47,11 @@ export class GalleryApiService {
     this.page = 1;
   }
 
-  calculateTotalPages({totalHits}) {    
-    this.totalPages = Math.ceil(totalHits/this.perPage);
+  calculateTotalPages({ totalHits }) {
+    this.totalPages = Math.ceil(totalHits / this.perPage);
   }
 
-  pageIsLast(){
-    return this.page==this.totalPages;
+  pageIsLast() {
+    return this.page == this.totalPages;
   }
 }
