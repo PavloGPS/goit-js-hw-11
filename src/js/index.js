@@ -33,8 +33,8 @@ async function onSearchFormSubmit(evt) {
       evt.currentTarget.elements.searchQuery.value = '';
       return;
     }
-    galleryApiService.query = currentQueryText;
     removeGalleryMarkup();
+    galleryApiService.query = currentQueryText;
     galleryApiService.setFirstPage();
     const data = await galleryApiService.fetchItems();
     if (!data.totalHits) {
@@ -93,7 +93,7 @@ function onNoHitsErr() {
 
 function removeGalleryMarkup() {
   galleryContainer.innerHTML = '';
-  //   simpleLightbox.refresh();
+  simpleLightbox.refresh();
 }
 
 function createGalleryMarkup(array) {

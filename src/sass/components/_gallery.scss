@@ -1,6 +1,68 @@
-:root {
-  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  --animation-duration: 250ms;
+
+
+
+//////////////form/////////////////////////////////
+.search-form {
+  width: 100vw;
+  height: 45px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #797de080;
+  z-index: 99;
+}
+
+.search-form input {
+  padding: 5px;
+  height: 30px;
+  width: 30%;
+  min-width: 275px;
+  border: 1px solid #65686dba;
+  border-radius: 15px 0 0 15px;
+  border-right: none;
+  outline: none;
+  color: #65686dba;
+}
+
+input:focus {
+  color: #212121;
+}
+
+.search-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #65686dba;
+  border-left: none;
+  background: rgba(255, 255, 255, 1);
+  text-align: center;
+  color: #605e5ea3;
+  border-radius: 0 50% 50% 0;
+  cursor: pointer;
+  font-size: 15px;
+  transition: color var(--animation-duration) var(--timing-function),
+    background-color var(--animation-duration) var(--timing-function),
+    transform var(--animation-duration) var(--timing-function),
+    box-shadow var(--animation-duration) var(--timing-function);
+}
+
+.search-btn:hover,
+.search-btn:focus {
+  background: white;
+  color: #605e5e;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+}
+.search-btn__icon {
+  fill: currentColor;
+  transition: color var(--animation-duration) var(--timing-function),
+    background-color var(--animation-duration) var(--timing-function),
+    transform var(--animation-duration) var(--timing-function),
+    box-shadow var(--animation-duration) var(--timing-function);
+}
+.search-btn:hover .search-btn__icon {
+  transform: rotate(-0.15turn) scale(1.2);
 }
 
 .gallery {
@@ -47,9 +109,6 @@
   height: 100%;
 }
 
-.photo-card-wraper__link:hover {
-  cursor: zoom-in;
-}
 .info {
   padding: 3px;
   height: 50px;
@@ -89,6 +148,7 @@
   background-color: rgb(123, 140, 232);
   color: #fafafa;
 }
+
 .load-more:hover,
 .load-more:focus {
   background-color: rgb(143, 160, 253);
@@ -101,68 +161,13 @@
   background-color: #dad3d3;
   box-shadow: none;
 }
-/////////////////////////////////////////////////////
-//////////////form/////////////////////////////////
-/////////////////////////////////////////////////
-.search-form {
-  width: 100vw;
-  height: 45px;
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #797de080;
-  z-index: 99;
+
+.load-more:disabled .loadmore-text{
+  display: none;
 }
 
-.search-form input {
-  padding: 5px;
-  width: 30%;
-  min-width: 275px;
-  height: 30px;
-  border: 1px solid #65686dba;
-  border-radius: 15px 0 0 15px;
-  border-right: none;
-  outline: none;
-  color: #65686dba;
+.load-more:disabled .lds-spinner{
+  display: inline-block;
+  // transform: scale(0.5);
 }
 
-input:focus {
-  color: #212121;
-}
-
-.search-btn {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #65686dba;
-  border-left: none;
-  background: rgba(255, 255, 255, 1);
-  text-align: center;
-  color: #605e5ea3;
-  border-radius: 0 50% 50% 0;
-  cursor: pointer;
-  font-size: 15px;
-  transition: color var(--animation-duration) var(--timing-function),
-    background-color var(--animation-duration) var(--timing-function),
-    transform var(--animation-duration) var(--timing-function),
-    box-shadow var(--animation-duration) var(--timing-function);
-}
-
-.search-btn:hover,
-.search-btn:focus {
-  background: white;
-  color: #605e5e;
-  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
-}
-.search-btn__icon {
-  fill: currentColor;
-  transition: color var(--animation-duration) var(--timing-function),
-    background-color var(--animation-duration) var(--timing-function),
-    transform var(--animation-duration) var(--timing-function),
-    box-shadow var(--animation-duration) var(--timing-function);
-}
-.search-btn:hover .search-btn__icon {
-  transform: rotate(-0.15turn) scale(1.2);
-}
